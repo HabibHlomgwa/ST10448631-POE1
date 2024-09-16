@@ -3,6 +3,7 @@
  */
 
 package com.mycompany.poe1;
+import java.util.Scanner;
 
 /**
  *
@@ -11,6 +12,42 @@ package com.mycompany.poe1;
 public class POE1 {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        //call methods
+        checkusername();
+       //declaration
+        String firstname;
+        String lastname;
+        String user;
+        String pass;
+        
+        //create object for scanner
+        Scanner sc = new Scanner(System.in); 
+        
+        System.out.println("Enter your name: ");
+        firstname = sc.next();
+        
+        System.out.println("Enter your lastname: ");
+        lastname = sc.next();
+       
+        
+    }
+    
+    public static boolean checkusername(){
+        String username;
+                    Scanner sc = new Scanner(System.in);
+        System.out.println("Create a username: ");
+        username = sc.next();
+        
+        if(username.contains("_") && username.length() <=5){
+            System.out.println("Username successfully captured");
+        }
+        else{
+            System.out.println("Username is not correctly formatted, please ensure that your usename contains an underscore and is no more than 5 characters in length");
+            
+        }
+        return false;
+        
+        
+        
     }
 }
