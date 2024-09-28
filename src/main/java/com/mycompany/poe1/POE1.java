@@ -35,19 +35,22 @@ public class POE1 {
     public static boolean checkusername(){
         String username;
                     Scanner sc = new Scanner(System.in);
+                    
         System.out.println("Create a username: ");
         username = sc.next();
-        
-        if(username.contains("_") && username.length() <=5){
-            System.out.println("Username successfully captured");
-        }
-        else{
-            System.out.println("Username is not correctly formatted, please ensure that your usename contains an underscore and is no more than 5 characters in length");
-            
-        }
-        return false;
-        
-        
-        
+      
+    if(username.contains("_") && username.length() <=5){
+         System.out.println("username");
+         //return username.contains("_") && username.length() <=5;
     }
+        
+    
+    else {
+    System.out.println("Username is not correctly formatted, please ensure that your usename contains an underscore and is no more than 5 characters in length");
+    }
+        return false;
+    
+    }
+
+    
 }
