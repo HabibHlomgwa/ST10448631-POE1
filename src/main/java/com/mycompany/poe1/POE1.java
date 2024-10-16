@@ -3,7 +3,8 @@
  */
 
 package com.mycompany.poe1;
-import java.util.Scanner;
+import java.util.*;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -11,71 +12,52 @@ import java.util.Scanner;
  */
 public class POE1 {
     
-
+        
     public static void main(String[] args) {
-        
-        //create object for scanner and call class
         Scanner sc = new Scanner(System.in);
-        register registerobj = new register();
+        register registerObj = new register();
         
-        //declarations
-        String firstname;
-        String lastname;
-        String user;
-        String pass;
-        
-        //prompt user for their details
-        System.out.println("Enter your Firstname: ");
-        firstname = sc.next();
-        
-        System.out.println("Enter your lastname: ");
-        lastname = sc.next();
+        // Declarations
+        String username;
+        String password;
+        String firstName;
+        String lastName;
+
+        // Prompt user for their details
+        System.out.print("Enter your Firstname: ");
+        firstName = sc.next();
+
+        System.out.print("Enter your Lastname: ");
+        lastName = sc.next();
+
+        System.out.print("Create a username: ");
+        username = sc.next();
         
         // Check if the username is valid
-        boolean isUsernameValid = registerobj.checkUserName(sc);
-        String username = "";
-        String password = "";
+        if (registerObj.checkUserName(username)) {
+            System.out.print("Create a password: ");
+            password = sc.next();
 
-        if (isUsernameValid) {
             // Check the password
-            boolean isPasswordValid = registerobj.checkPasswordComplexity(sc);
-            if (isPasswordValid) {
+            if (registerObj.checkPasswordComplexity(password)) {
+                System.out.println("Password successfully captured.");
                 
-                // Capture username and password after validation
-                // Retrieve captured username
-                username = registerobj.getUsername();  
-                // Retrieve captured password
-                password = registerobj.getPassword();  
-
-                // Collect first and last names for greeting purposes
-                System.out.println("Enter First Name: ");
-                String firstName = sc.next();
-
-                System.out.println("Enter Last Name: ");
-                String lastName = sc.next();
+                // Set the username and password
+                registerObj.setUsername(username);
+                registerObj.setPassword(password);
 
                 // Attempt to log in with the registered credentials
-                boolean isLoginSuccessful = register.loginUser(sc, username, password, firstName, lastName);
+                boolean isLoginSuccessful = register.loginUser(username, password, registerObj.getUsername(), registerObj.getPassword());
+                System.out.println(register.returnLoginStatus(isLoginSuccessful, firstName, lastName));
+            } else {
+                System.out.println("Password is not correctly formatted. Please ensure that your password contains at least 8 characters, a capital letter, a number, and a special character.");
+            }
+        } else {
+            System.out.println("Username is not correctly formatted. Please ensure that your username contains an underscore and is no more than 5 characters in length.");
+        }
 
-                // Output login result
-                if (isLoginSuccessful) {
-                    System.out.println("Login was successful.");
-                } else {
-                    System.out.println("Login failed. Please check your username and password.");
-                }
-            }
-            else {
-                System.out.println("Password validation failed.");
-            }
-        }
-        else {
-            System.out.println("Username validation failed.");
-        }
-        
-        // Close the scanner
-        sc.close();  
+        sc.close();  // Close the scanner
     }
-    
 }
      
     
