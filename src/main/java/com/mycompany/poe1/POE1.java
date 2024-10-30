@@ -14,23 +14,13 @@ public class POE1 {
     
         
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);        
+       // Create a Register object 
         register registerObj = new register();
-        
-        // Declarations
-        String username;
-        String password;
-        String firstName;
-        String lastName;
 
-        // Prompt user for their details
-        System.out.print("Enter your Firstname: ");
-        firstName = sc.next();
-
-        System.out.print("Enter your Lastname: ");
-        lastName = sc.next();
-
-        System.out.print("Create a username: ");
+        // Take user details 
+        String firstName = JOptionPane.showInputDialog("Enter your Firstname:");
+        String lastName = JOptionPane.showInputDialog("Enter your Lastname:");
         username = sc.next();
         
         // Check if the username is valid
