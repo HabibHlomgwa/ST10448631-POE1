@@ -11,7 +11,7 @@ import java.util.*;
  */
 public class register {
     
- private String username;
+     private String username;
     private String password;
 
     public register() {
@@ -36,13 +36,7 @@ public class register {
 
     public boolean checkUserName(String username) {
         // Check if username contains "_" and is no more than 5 characters
-        if (username.contains("_") && username.length() <= 5) {
-            System.out.println("Username successfully captured.");
-            return true;
-        } else {
-            System.out.println("Username is not correctly formatted.");
-            return false;
-        }
+        return username.contains("_") && username.length() <= 5;
     }
 
     public boolean checkPasswordComplexity(String password) {
