@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 public class tasks {
     
       static int taskCounter = 0; // Counter for task number
-    private static double totalHours = 0; // Accumulator for total task hours
+    static double totalHours = 0; // Accumulator for total task hours
     private static int totalTasks; // Total number of tasks to enter
 
     // Task management logic with JOptionPane interactions
@@ -90,6 +90,18 @@ public class tasks {
 
     private static void showReport() {
         JOptionPane.showMessageDialog(null, "Report feature coming soon.");
+    }
+
+    static double totalHours() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    static double totalHours() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    static double totalHours() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     // Task constructor and Task ID logic
