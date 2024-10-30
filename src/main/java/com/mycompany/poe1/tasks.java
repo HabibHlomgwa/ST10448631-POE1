@@ -92,18 +92,6 @@ public class tasks {
         JOptionPane.showMessageDialog(null, "Report feature coming soon.");
     }
 
-    static double totalHours() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    static double totalHours() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    static double totalHours() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
     // Task constructor and Task ID logic
     private String taskName;
     private String taskDescription;
