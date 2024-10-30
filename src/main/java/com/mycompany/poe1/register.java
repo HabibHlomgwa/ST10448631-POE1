@@ -11,7 +11,7 @@ import java.util.*;
  */
 public class register {
     
-     private String username;
+    private String username;
     private String password;
 
     public register() {
@@ -39,12 +39,11 @@ public class register {
         return username.contains("_") && username.length() <= 5;
     }
 
-    public boolean checkPasswordComplexity(String password) {
+     public boolean checkPasswordComplexity(String password) {
         boolean hasDigit = false;
         boolean hasCapital = false;
         boolean hasSpecial = false;
         boolean isLong = password.length() >= 8;
-
         String specialCharacters = "+=-_)(*&^%$#@!";
 
         // Check password for the required conditions
@@ -56,17 +55,3 @@ public class register {
 
         return hasDigit && hasCapital && hasSpecial && isLong;
     }
-
-    public static boolean loginUser(String enteredUsername, String enteredPassword, String storedUsername, String storedPassword) {
-        // Check if the provided credentials match the stored username and password
-        return enteredUsername.equals(storedUsername) && enteredPassword.equals(storedPassword);
-    }
-
-    public static String returnLoginStatus(boolean isSuccess, String firstName, String lastName) {
-        if (isSuccess) {
-            return "Welcome " + firstName + " " + lastName + ", it is great to see you again!";
-        } else {
-            return "Username or password validation failed.";
-        }
-    }
-}
