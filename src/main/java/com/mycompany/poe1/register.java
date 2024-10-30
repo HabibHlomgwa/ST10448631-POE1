@@ -55,3 +55,17 @@ public class register {
 
         return hasDigit && hasCapital && hasSpecial && isLong;
     }
+     
+    public static boolean loginUser(String enteredUsername, String enteredPassword, String storedUsername, String storedPassword) {
+        // Check if the provided credentials match the stored username and password
+        return enteredUsername.equals(storedUsername) && enteredPassword.equals(storedPassword);
+    }
+
+    public static String returnLoginStatus(boolean isSuccess, String firstName, String lastName) {
+        if (isSuccess) {
+            return "Welcome " + firstName + " " + lastName + ", it is great to see you again!";
+        } else {
+            return "Username or password validation failed.";
+        }
+    }
+}
