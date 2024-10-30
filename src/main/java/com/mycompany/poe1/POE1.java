@@ -15,38 +15,55 @@ public class POE1 {
         
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);        
-       // Create a Register object 
+        // Create a Register object 
         register registerObj = new register();
 
         // Take user details 
         String firstName = JOptionPane.showInputDialog("Enter your Firstname:");
         String lastName = JOptionPane.showInputDialog("Enter your Lastname:");
-        username = sc.next();
         
-        // Check if the username is valid
-        if (registerObj.checkUserName(username)) {
-            System.out.print("Create a password: ");
-            password = sc.next();
-
-            // Check the password
+        // Validate username with a while loop
+        String username;
+        while (true) {
+            username = JOptionPane.showInputDialog("Create a username (must include '_' and no more than 5 characters):");
+            if (registerObj.checkUserName(username)) {
+                break;
+            } else {
+                JOptionPane.showMessageDialog(null, "Invalid username format. Please try again.");
+            }
+        }
+        
+        // Validate password with a while loop
+        String password;
+        while (true) {
+            password = JOptionPane.showInputDialog("Create a password (min. 8 chars, include digit, uppercase & special char):");
             if (registerObj.checkPasswordComplexity(password)) {
-                System.out.println("Password successfully captured.");
-                
-                // Set the username and password
+                JOptionPane.showMessageDialog(null, "Password successfully captured.");
                 registerObj.setUsername(username);
                 registerObj.setPassword(password);
-
-                // Attempt to log in with the registered credentials
-                boolean isLoginSuccessful = register.loginUser(username, password, registerObj.getUsername(), registerObj.getPassword());
-                System.out.println(register.returnLoginStatus(isLoginSuccessful, firstName, lastName));
+                break;
             } else {
-                System.out.println("Password is not correctly formatted. Please ensure that your password contains at least 8 characters, a capital letter, a number, and a special character.");
+                JOptionPane.showMessageDialog(null, "Password is not correctly formatted. Please try again.");
             }
-        } else {
-            System.out.println("Username is not correctly formatted. Please ensure that your username contains an underscore and is no more than 5 characters in length.");
         }
 
-        sc.close();  // Close the scanner
+        // Attempt login using a while loop to allow retry on failure
+        boolean isLoginSuccessful = false;
+        while (!isLoginSuccessful) {
+            String enteredUsername = JOptionPane.showInputDialog("Enter your username to login:");
+            String enteredPassword = JOptionPane.showInputDialog("Enter your password to login:");
+
+            isLoginSuccessful = register.loginUser(enteredUsername, enteredPassword, registerObj.getUsername(), registerObj.getPassword());
+            if (!isLoginSuccessful) {
+                JOptionPane.showMessageDialog(null, "Username or password validation failed. Please try again.");
+            }
+        }
+
+        // Login success message and switch to task management
+        JOptionPane.showMessageDialog(null, register.returnLoginStatus(isLoginSuccessful, firstName, lastName));
+        
+        // Call manageTasks in the Tasks class
+        tasks.manageTasks(firstName + " " + lastName);
     }
 }
      
