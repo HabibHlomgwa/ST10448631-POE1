@@ -4,76 +4,68 @@
  */
 package com.mycompany.poe1;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
+
 
 /**
  *
  * @author RC_Student_lab
  */
+
+
 public class tasksTest {
-    
-    public tasksTest() {
-    }
-    
+    private tasks task;
+
     @BeforeAll
-    public static void setUpClass() {
+    public static void initAll() {
+        System.out.println("Starting Tasks tests...");
     }
-    
-    @AfterAll
-    public static void tearDownClass() {
-    }
-    
+
     @BeforeEach
     public void setUp() {
+        tasks.taskCounter = 1; // Reset taskCounter
+        task = new tasks("Task1", "This is a test task", "John Doe", 5.0, "To Do");
     }
-    
+
     @AfterEach
     public void tearDown() {
+        task = null;
     }
 
-    /**
-     * Test of manageTasks method, of class tasks.
-     */
+    @AfterAll
+    public static void tearDownAll() {
+        System.out.println("Finished Tasks tests.");
+    }
+
     @Test
-    public void testManageTasks() {
-        System.out.println("manageTasks");
-        String developerName = "";
-        tasks.manageTasks(developerName);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testAddTask() {
+        assertEquals(5.0, tasks.getTotalHours(), 0.01); // Check initial total hours
+        tasks newTask = new tasks("Task2", "Another test task", "Jane Doe", 3.0, "Doing");
+        assertEquals(8.0, tasks.getTotalHours(), 0.01); // Verify updated total hours
     }
 
-    /**
-     * Test of createTaskID method, of class tasks.
-     */
     @Test
     public void testCreateTaskID() {
-        System.out.println("createTaskID");
-        tasks instance = null;
-        String expResult = "";
-        String result = instance.createTaskID();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        String taskID = task.createTaskID();
+        assertTrue(taskID.startsWith("TA")); // Ensure Task ID starts correctly
+        assertTrue(taskID.contains("DOE")); // Check last three characters of developer name
     }
 
-    /**
-     * Test of printTaskDetails method, of class tasks.
-     */
     @Test
-    public void testPrintTaskDetails() {
-        System.out.println("printTaskDetails");
-        tasks instance = null;
-        String expResult = "";
-        String result = instance.printTaskDetails();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testTaskDetails() {
+        String details = task.printTaskDetails();
+        assertTrue(details.contains("Task1"));
+        assertTrue(details.contains("This is a test task"));
+        assertTrue(details.contains("5.00"));
     }
-    
+
+    @Test
+    public void testMultipleTasks() {
+        tasks task1 = new tasks("Task1", "Test Task 1", "Jane Doe", 2.0, "Doing");
+        tasks task2 = new tasks("Task2", "Test Task 2", "Jane Doe", 4.0, "Done");
+        assertEquals(6.0, tasks.getTotalHours(), 0.01);
+    }
 }
+
+

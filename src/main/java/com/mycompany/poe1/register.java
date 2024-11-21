@@ -10,20 +10,15 @@ import java.util.*;
  * @author RC_Student_lab
  */
 public class register {
-    
     private String username;
     private String password;
 
-    public register() {
-        // Default constructor
+    public boolean checkUserName(String username) {
+        return username.contains("_") && username.length() >= 5;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
+    public boolean checkPasswordComplexity(String password) {
+        return password.matches(".*[A-Z].*") && password.matches(".*[a-z].*") && password.matches(".*\\d.*") && password.length() >= 8;
     }
 
     public void setUsername(String username) {
@@ -34,38 +29,24 @@ public class register {
         this.password = password;
     }
 
-    public boolean checkUserName(String username) {
-        // Check if username contains "_" and is no more than 5 characters
-        return username.contains("_") && username.length() <= 5;
+    public String getUsername() {
+        return username;
     }
 
-     public boolean checkPasswordComplexity(String password) {
-        boolean hasDigit = false;
-        boolean hasCapital = false;
-        boolean hasSpecial = false;
-        boolean isLong = password.length() >= 8;
-        String specialCharacters = "+=-_)(*&^%$#@!";
-
-        // Check password for the required conditions
-        for (char result : password.toCharArray()) {
-            if (Character.isDigit(result)) hasDigit = true;
-            if (Character.isUpperCase(result)) hasCapital = true;
-            if (specialCharacters.indexOf(result) >= 0) hasSpecial = true;
-        }
-
-        return hasDigit && hasCapital && hasSpecial && isLong;
-    }
-     
-    public static boolean loginUser(String enteredUsername, String enteredPassword, String storedUsername, String storedPassword) {
-        // Check if the provided credentials match the stored username and password
-        return enteredUsername.equals(storedUsername) && enteredPassword.equals(storedPassword);
+    public String getPassword() {
+        return password;
     }
 
-    public static String returnLoginStatus(boolean isSuccess, String firstName, String lastName) {
-        if (isSuccess) {
-            return "Welcome " + firstName + " " + lastName + ", it is great to see you again!";
+    public static boolean loginUser(String username, String password, String storedUsername, String storedPassword) {
+        return username.equals(storedUsername) && password.equals(storedPassword);
+    }
+
+    public static String returnLoginStatus(boolean loginSuccess, String firstName, String lastName) {
+        if (loginSuccess) {
+            return "Welcome " + firstName + " " + lastName + ", login successful!";
         } else {
-            return "Username or password validation failed.";
+            return "Login unsuccessful. Please check your credentials.";
         }
     }
 }
+
