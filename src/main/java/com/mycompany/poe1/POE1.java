@@ -10,48 +10,113 @@ import javax.swing.JOptionPane;
  *
  * @author RC_Student_lab
  */
+import java.util.Scanner;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+
 public class POE1 {
     public static void main(String[] args) {
-        register registerObj = new register();
-        Scanner scanner = new Scanner(System.in);
+        Scanner take_input = new Scanner(System.in);
+        final JDialog dialog = new JDialog();
+        dialog.setAlwaysOnTop(true);
 
-        // Collect user details
-        System.out.print("Enter your Firstname: ");
-        String firstName = scanner.nextLine();
+        // Registration process
+        System.out.println("======== Register Your Account ========");
+        System.out.print("Enter your firstname: ");
+        String firstname = take_input.nextLine();
 
-        System.out.print("Enter your Lastname: ");
-        String lastName = scanner.nextLine();
+        System.out.print("Enter your lastname: ");
+        String lastname = take_input.nextLine();
 
-        System.out.print("Create a username: ");
-        String username = scanner.nextLine();
+        System.out.print("Enter your username: ");
+        String username = take_input.nextLine();
 
-        // Validate username
-        if (registerObj.checkUserName(username)) {
-            System.out.print("Create a password: ");
-            String password = scanner.nextLine();
+        System.out.print("Enter your password: ");
+        String password = take_input.nextLine();
 
-            // Validate password
-            if (registerObj.checkPasswordComplexity(password)) {
-                System.out.println("Password successfully captured.");
-                registerObj.setUsername(username);
-                registerObj.setPassword(password);
+        System.out.println("Registration successful! Welcome, " + firstname + " " + lastname + ".");
 
-                // Attempt login
-                boolean isLoginSuccessful = register.loginUser(username, password, registerObj.getUsername(), registerObj.getPassword());
-                System.out.println(register.returnLoginStatus(isLoginSuccessful, firstName, lastName));
+        // Login process
+        System.out.println("======== Log In to Your Account ========");
+        while (true) {
+            System.out.print("Enter your username: ");
+            String loginUsername = take_input.nextLine();
 
-                if (isLoginSuccessful) {
-                    // Switch to task management
-                    tasks.manageTasks(firstName + " " + lastName);
-                }
+            System.out.print("Enter your password: ");
+            String loginPassword = take_input.nextLine();
+
+            if (loginUsername.equals(username) && loginPassword.equals(password)) {
+                System.out.println("Login successful!");
+                JOptionPane.showMessageDialog(null, "Welcome to EasyKanban!");
+                break;
             } else {
-                System.out.println("Password is not correctly formatted.");
+                System.out.println("Login failed. Please try again.");
             }
-        } else {
-            System.out.println("Username is not correctly formatted.");
         }
 
-        scanner.close();
+        // Main menu
+        while (true) {
+            String menuOption = JOptionPane.showInputDialog(null,
+                    "Select an option:\n1) Add Tasks\n2) Show Report\n3) Quit");
+
+            if (menuOption == null) {
+                JOptionPane.showMessageDialog(null, "Exiting application.");
+                System.exit(0);
+            }
+
+            switch (menuOption) {
+                case "1":
+                    tasks.addTasks();
+                    break;
+                case "2":
+                    String reportOption = JOptionPane.showInputDialog(null,
+                            "Select a report option:\n1) Display 'Done' Tasks\n2) Longest Task\n3) Search by Task Name\n4) Search by Developer\n5) Delete a Task\n6) Full Task Report");
+
+                    if (reportOption == null) {
+                        JOptionPane.showMessageDialog(null, "Returning to main menu.");
+                        continue;
+                    }
+
+                    switch (reportOption) {
+                        case "1":
+                            tasks.displayDoneTasks();
+                            break;
+                        case "2":
+                            tasks.displayLongestTask();
+                            break;
+                        case "3":
+                            String searchName = JOptionPane.showInputDialog("Enter Task Name to Search:");
+                            if (searchName != null) {
+                                tasks.searchTaskByName(searchName);
+                            }
+                            break;
+                        case "4":
+                            String searchDev = JOptionPane.showInputDialog("Enter Developer Name to Search:");
+                            if (searchDev != null) {
+                                tasks.searchTasksByDeveloper(searchDev);
+                            }
+                            break;
+                        case "5":
+                            String deleteName = JOptionPane.showInputDialog("Enter Task Name to Delete:");
+                            if (deleteName != null) {
+                                tasks.deleteTask(deleteName);
+                            }
+                            break;
+                        case "6":
+                            tasks.displayTaskReport();
+                            break;
+                        default:
+                            JOptionPane.showMessageDialog(null, "Invalid option! Returning to main menu.");
+                    }
+                    break;
+                case "3":
+                    JOptionPane.showMessageDialog(null, "Exiting application. Total task hours: " + tasks.returnTotalHours() + " hours.");
+                    System.exit(0);
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(null, "Invalid option! Please select again.");
+            }
+        }
     }
 }
 

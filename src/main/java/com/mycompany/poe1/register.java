@@ -10,43 +10,47 @@ import java.util.*;
  * @author RC_Student_lab
  */
 public class register {
-    private String username;
-    private String password;
+    private static String registeredUsername = null;
+    private static String registeredPassword = null;
+    private static String firstname = null;
+    private static String lastname = null;
 
-    public boolean checkUserName(String username) {
-        return username.contains("_") && username.length() >= 5;
-    }
-
-    public boolean checkPasswordComplexity(String password) {
-        return password.matches(".*[A-Z].*") && password.matches(".*[a-z].*") && password.matches(".*\\d.*") && password.length() >= 8;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public static boolean loginUser(String username, String password, String storedUsername, String storedPassword) {
-        return username.equals(storedUsername) && password.equals(storedPassword);
-    }
-
-    public static String returnLoginStatus(boolean loginSuccess, String firstName, String lastName) {
-        if (loginSuccess) {
-            return "Welcome " + firstName + " " + lastName + ", login successful!";
-        } else {
-            return "Login unsuccessful. Please check your credentials.";
+    // Method to validate and register user
+    public static String registerUser(String username, String password, String firstName, String lastName) {
+        if (!checkUsername(username)) {
+            return "Invalid username format.";
         }
+        if (!checkPasswordComplexity(password)) {
+            return "Password does not meet complexity requirements.";
+        }
+        registeredUsername = username;
+        registeredPassword = password;
+        firstname = firstName;
+        lastname = lastName;
+        return "Username successfully captured.\nPassword successfully captured.";
+    }
+
+    // Check username validity
+    public static boolean checkUsername(String username) {
+        return username.matches("[a-zA-Z0-9_]+");
+    }
+
+    // Check password complexity
+    public static boolean checkPasswordComplexity(String password) {
+        return password.matches(".*[A-Z].*") && password.matches(".*[a-z].*") &&
+               password.matches(".*\\d.*") && password.matches(".*[!@#$%^&*()].*");
+    }
+
+    // Verify login credentials
+    public static boolean loginUser(String username, String password) {
+        return username.equals(registeredUsername) && password.equals(registeredPassword);
+    }
+
+    // Return login status
+    public static String returnLoginStatus(String username, String password) {
+        if (loginUser(username, password)) {
+            return "Welcome " + firstname + " " + lastname + ", it is great to see you again.";
+        }
+        return "Login failed.";
     }
 }
-
